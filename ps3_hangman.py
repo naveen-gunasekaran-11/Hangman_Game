@@ -43,12 +43,12 @@ def isWordGuessed(secretWord, lettersGuessed):
     returns: boolean, True if all the letters of secretWord are in lettersGuessed;
       False otherwise
     '''
-    flag = True;
+    flag = True
     for i in secretWord:
         if i not in lettersGuessed:
-            flag = False;
-            break;
-    return flag;
+            flag = False
+            break
+    return flag
 
 
 def getGuessedWord(secretWord, lettersGuessed):
@@ -58,24 +58,24 @@ def getGuessedWord(secretWord, lettersGuessed):
     returns: string, comprised of letters and underscores that represents
       what letters in secretWord have been guessed so far.
     '''
-    test_string = "";
-    guessed_string = "";
+    test_string = ""
+    guessed_string = ""
     for i in range (len(secretWord)):
-        test_string = test_string + "_" + " ";
-    index = 0;
-    guessed_string = test_string;
+        test_string = test_string + "_" + " "
+    index = 0
+    guessed_string = test_string
     for j in lettersGuessed: 
         if j in secretWord:
             for k in range (len(secretWord)):
                 if secretWord[k] == j:
-                    index = k; 
+                    index = k
                     for z in range (0, len(test_string), 2):
                         if z == index+index: 
-                            guessed_string = test_string[:z] + j + test_string[z+1:];
-                            test_string = guessed_string;
-                            break;
+                            guessed_string = test_string[:z] + j + test_string[z+1:]
+                            test_string = guessed_string
+                            break
 
-    return guessed_string;
+    return guessed_string
 
 def getAvailableLetters(lettersGuessed):
     '''
@@ -84,12 +84,12 @@ def getAvailableLetters(lettersGuessed):
       yet been guessed.
     '''
     lowercase_string = ""
-    available_guess_string = "";
+    available_guess_string = ""
     lowercase_string = string.ascii_lowercase
     for i in lowercase_string:
         if (i not in lettersGuessed):
-            available_guess_string = available_guess_string + i;
-    return available_guess_string;
+            available_guess_string = available_guess_string + i
+    return available_guess_string
    
 
 def hangman(secretWord):
@@ -112,37 +112,37 @@ def hangman(secretWord):
 
     Follows the other limitations detailed in the problem write-up.
     '''
-    num_guesses = 8;
-    lettersGuessed = [];
-    was_word_guessed = False;
+    num_guesses = 8
+    lettersGuessed = []
+    was_word_guessed = False
     
-    print ("Welcome to the game, Hangman!");
-    length_secret_word = len (secretWord);
-    print ("I am thinking of a word that is " + str(length_secret_word) + " letters long.");
+    print ("Welcome to the game, Hangman!")
+    length_secret_word = len (secretWord)
+    print ("I am thinking of a word that is " + str(length_secret_word) + " letters long.")
 
     while num_guesses != 0:
-        print ("-------------");
-        print ("You have " + str(num_guesses) + " guesses left.");
-        print ("Available letters: " + getAvailableLetters(lettersGuessed));
-        user_input = str(input("Please guess a letter: "));
+        print ("-------------")
+        print ("You have " + str(num_guesses) + " guesses left.")
+        print ("Available letters: " + getAvailableLetters(lettersGuessed))
+        user_input = str(input("Please guess a letter: "))
         if (user_input in lettersGuessed):
-            print ("Oops! You've already guessed that letter: " + getGuessedWord(secretWord, lettersGuessed));
+            print ("Oops! You've already guessed that letter: " + getGuessedWord(secretWord, lettersGuessed))
         else:
-            lettersGuessed.append(user_input);
+            lettersGuessed.append(user_input)
             if (user_input in secretWord):
-                print ("Good guess: " + getGuessedWord(secretWord, lettersGuessed));
+                print ("Good guess: " + getGuessedWord(secretWord, lettersGuessed))
             else:
-                print ("Oops! That letter is not in my word: " + getGuessedWord(secretWord, lettersGuessed));
-                num_guesses = num_guesses - 1;
+                print ("Oops! That letter is not in my word: " + getGuessedWord(secretWord, lettersGuessed))
+                num_guesses = num_guesses - 1
             
             if (isWordGuessed(secretWord, lettersGuessed)):
-                was_word_guessed = True;
-                break;
-    print ("-------------");
+                was_word_guessed = True
+                break
+    print ("-------------")
     if (was_word_guessed):
-        print ("Congratulations, you won!");
+        print ("Congratulations, you won!")
     else:
-        print ("Sorry, you ran out of guesses. The word was " + secretWord + ".");
+        print ("Sorry, you ran out of guesses. The word was " + secretWord + ".")
 
 
 secretWord = chooseWord(wordlist).lower()
